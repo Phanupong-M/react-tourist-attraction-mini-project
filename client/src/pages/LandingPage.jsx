@@ -19,10 +19,8 @@ function LandingPage() {
         `http://localhost:4001/trips?keywords=${debouncedValue}`
       );
       setTrips(response.data.data);
-      console.log(response.data.data);
     } catch (error) {
       setError("ไม่สามารถโหลดข้อมูลได้ กรุณาลองใหม่อีกครั้ง");
-      console.log("failed to get data", error);
     } finally {
       setLoading(false);
     }
@@ -65,9 +63,6 @@ function LandingPage() {
     }
   };
 
-  // console.log(debouncedValue);
-  // console.log(trips);
-
   return (
     <div className="container mx-auto px-4 py-8 max-w-7xl">
       <div className="flex flex-col items-center justify-start mt-10">
@@ -88,7 +83,7 @@ function LandingPage() {
         {/* Loading & Error */}
         {loading && <div>กำลังค้นหา...</div>}
 
-        {!loading && trips.length === 0 && (
+        {!loading && trips.length === 0 && error === null && (
           <div className="text-center py-8">
             <p className="">ไม่พบข้อมูลการท่องเที่ยวที่คุณค้นหา</p>
           </div>
