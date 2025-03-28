@@ -13,11 +13,13 @@ function LandingPage() {
 
   const getSearch = async () => {
     setLoading(true);
+    console.log(debouncedValue);
     try {
       const response = await axios.get(
         `http://localhost:4001/trips?keywords=${debouncedValue}`
       );
       setTrips(response.data.data);
+      console.log(response.data.data);
     } catch (error) {
       setError("ไม่สามารถโหลดข้อมูลได้ กรุณาลองใหม่อีกครั้ง");
       console.log("failed to get data", error);
@@ -32,14 +34,14 @@ function LandingPage() {
 
   useEffect(() => {
     const timeout = setTimeout(() => {
-      setDebouncedValue(search);
+      setDebouncedValue(search.trim());
     }, 800);
 
     return () => clearTimeout(timeout);
   }, [search]);
 
   function handleCatgory(cateogry) {
-    setSearch((prev) => `${prev} ${cateogry}`);
+    setSearch((prev) => `${prev.trim()} ${cateogry.trim()}`);
   }
 
   useEffect(() => {
@@ -62,7 +64,10 @@ function LandingPage() {
       console.error("ไม่สามารถคัดลอกลิงก์ได้: ", err);
     }
   };
-  console.log(search);
+
+  // console.log(debouncedValue);
+  // console.log(trips);
+
   return (
     <div className="container mx-auto px-4 py-8 max-w-7xl">
       <div className="flex flex-col items-center justify-start mt-10">
@@ -139,12 +144,11 @@ function LandingPage() {
               <div className="mb-4">
                 <span className="text-gray-600">หมวด </span>
                 {trip.tags.map((item, index) => (
-                  <>
+                  <span key={index}>
                     {index == trip.tags.length - 1 && (
                       <span className="text-gray-700">และ</span>
                     )}
                     <span
-                      key={index}
                       className=" underline text-gray-700 rounded-full inline-block py-1 px-1 mx-1 cursor-pointer"
                       onClick={() => {
                         handleCatgory(item);
@@ -152,7 +156,7 @@ function LandingPage() {
                     >
                       {item}
                     </span>
-                  </>
+                  </span>
                 ))}
               </div>
 
