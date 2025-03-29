@@ -127,7 +127,7 @@ function LandingPage() {
               </p>
 
               <a
-                className="text-blue-500 underline mb-4"
+                className="text-blue-500 underline mb-4 "
                 href={trip.url}
                 target="_blank"
                 rel="noopener noreferrer"
@@ -144,7 +144,7 @@ function LandingPage() {
                       <span className="text-gray-700">และ</span>
                     )}
                     <span
-                      className=" underline text-gray-700 rounded-full inline-block py-1 px-1 mx-1 cursor-pointer"
+                      className=" underline text-gray-700 rounded-full inline-block py-1 px-1 mx-1 cursor-pointer hover:text-gray-400"
                       onClick={() => {
                         handleCatgory(item);
                       }}
